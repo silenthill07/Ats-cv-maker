@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد السيرة الذاتية المتوافق مع ATS</title>
+    <!-- تحميل Tailwind CSS لأفضل تصميم مستجيب (Responsive) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* تعريف خط Inter كخط أساسي للتطبيق */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f9; /* لون خلفية خفيف */
+        }
+        
+        /* تنسيقات الطباعة (تُطبق فقط عند الطباعة) */
+        @media print {
+            body {
+                background-color: #fff !important; /* خلفية بيضاء للطباعة */
+            }
+            /* إخفاء عناصر التحكم (الإدخال والأزرار) عند الطباعة */
+            .controls-area, .no-print {
+                display: none !important;
+            }
+            /* جعل منطقة السيرة الذاتية تأخذ عرض الصفحة بالكامل */
+            .cv-container {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                max-width: none !important;
+                min-height: 100vh;
+            }
+
+            /* ضمان تنسيق الخطوط والأحجام لسهولة القراءة في النسخة المطبوعة */
+            .cv-container h1, .cv-container h2, .cv-container h3 {
+                color: #000 !important;
+                font-weight: 700 !important;
+            }
+            .cv-container p, .cv-container li {
+                color: #333 !important;
+                font-size: 11pt;
+            }
+
+            /* تخصيص طباعة قالب بسيط */
+            .simple-template {
+                border: none !important;
+            }
+            /* تخصيص طباعة قالب عصري */
+            .modern-template .section-title {
+                border-bottom: 2px solid #3b82f6 !important;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="controls-area max-w-7xl mx-auto mb-8">
+        <header class="text-center mb-6">
+            <h1 class="text-3xl font-extrabold text-blue-700">مولد السيرة الذاتية (ATS Friendly)</h1>
+            <p class="text-gray-600 mt-2">أدخل بياناتك واختر الشكل المناسب لضمان أعلى توافق مع أنظمة الفرز الآلي.</p>
+        </header>
+
+        <!-- أدوات التحكم والطباعة -->
+        <div class="bg-white p-5 rounded-xl shadow-lg flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4 mb-8">
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <label for="template-selector" class="text-lg font-medium text-gray-700 whitespace-nowrap">اختر الشكل:</label>
+                <select id="template-selector" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <option value="simple">1. شكل بسيط (الأفضل لـ ATS)</option>
+                    <option value="modern">2. شكل عصري</option>
+                </select>
+            </div>
+            <button id="print-button" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300 w-full md:w-auto">
+                طباعة السيرة الذاتية
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:space-x-8 lg:space-x-reverse">
+        
+        <!-- منطقة إدخال البيانات -->
+        <div class="lg:w-1/2 controls-area">
+            <div id="input-form" class="bg-white p-6 rounded-xl shadow-2xl space-y-6">
+                
+                <!-- 1. معلومات الاتصال -->
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-bold text-gray-800 mb-3">1. معلومات الاتصال</h2>
+                    <input type="text" id="name" placeholder="الاسم الكامل" class="input-field mb-3" value="أحمد محمد السيد">
+                    <input type="text" id="title" placeholder="المسمى الوظيفي (مثال: مهندس برمجيات)" class="input-field mb-3" value="مهندس برمجيات أول">
+                    <input type="email" id="email" placeholder="البريد الإلكتروني" class="input-field mb-3" value="ahmad.sayed@example.com">
+                    <input type="text" id="phone" placeholder="رقم الهاتف" class="input-field mb-3" value="+966 50 123 4567">
+                    <input type="url" id="linkedin" placeholder="رابط LinkedIn (اختياري)" class="input-field" value="linkedin.com/in/ahmad-sayed">
+                </section>
+
+                <!-- 2. الملخص الاحترافي -->
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-bold text-gray-800 mb-3">2. الملخص الاحترافي</h2>
+                    <textarea id="summary" placeholder="ملخص موجز وقوي يبرز أهم إنجازاتك وخبراتك (2-3 جمل)" class="textarea-field">مهندس برمجيات بخبرة 5 سنوات في تطوير تطبيقات الويب باستخدام JavaScript و React. متخصص في بناء واجهات مستخدم سريعة وموثوقة، مع سجل حافل في قيادة فرق صغيرة لتقديم مشاريع كبرى في الوقت المحدد.</textarea>
+                </section>
+
+                <!-- 3. الخبرة العملية -->
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-bold text-gray-800 mb-3 flex justify-between items-center">
+                        الخبرة العملية 
+                        <button onclick="addExperience()" class="text-sm text-blue-600 hover:text-blue-800 font-medium">إضافة خبرة</button>
+                    </h2>
+                    <div id="experience-container" class="space-y-4">
+                        <!-- نموذج الخبرة الأولى -->
+                        <div class="experience-entry p-3 border rounded-lg bg-gray-50 relative">
+                            <button onclick="removeEntry(this)" class="absolute top-1 left-1 text-red-500 hover:text-red-700 text-lg">&times;</button>
+                            <input type="text" data-field="title" placeholder="المسمى الوظيفي" class="input-field mb-2" value="مهندس برمجيات أول">
+                            <input type="text" data-field="company" placeholder="اسم الشركة" class="input-field mb-2" value="شركة التقنية المتقدمة">
+                            <input type="text" data-field="dates" placeholder="تاريخ البدء - تاريخ الانتهاء (مثال: 2020 - حتى الآن)" class="input-field mb-2" value="2020 - حتى الآن">
+                            <textarea data-field="description" placeholder="الوصف والمهام والإنجازات (استخدم النقاط لتسهيل قراءة ATS)" class="textarea-field text-sm">
+- قمت بقيادة عملية انتقال المشروع من Angular إلى React مما أدى إلى تحسين أداء الواجهة بنسبة 30%.
+- عملت بشكل وثيق مع فريق المنتجات لتنفيذ ميزات جديدة، مما زاد من تفاعل المستخدمين بنسبة 15%.
+- تدريب وإرشاد مهندسين مبتدئين وتوجيههم خلال دورات حياة المشروع.
+                            </textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. التعليم والمؤهلات -->
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-bold text-gray-800 mb-3 flex justify-between items-center">
+                        التعليم والمؤهلات
+                        <button onclick="addEducation()" class="text-sm text-blue-600 hover:text-blue-800 font-medium">إضافة مؤهل</button>
+                    </h2>
+                    <div id="education-container" class="space-y-4">
+                        <!-- نموذج التعليم الأول -->
+                        <div class="education-entry p-3 border rounded-lg bg-gray-50 relative">
+                            <button onclick="removeEntry(this)" class="absolute top-1 left-1 text-red-500 hover:text-red-700 text-lg">&times;</button>
+                            <input type="text" data-field="degree" placeholder="الدرجة العلمية (مثال: بكالوريوس علوم الحاسوب)" class="input-field mb-2" value="بكالوريوس علوم الحاسوب">
+                            <input type="text" data-field="institution" placeholder="اسم الجامعة/المؤسسة" class="input-field mb-2" value="جامعة الملك فهد للبترول والمعادن">
+                            <input type="text" data-field="dates" placeholder="سنة التخرج (مثال: 2015-2020)" class="input-field" value="2020">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. المهارات التقنية والشخصية -->
+                <section>
+                    <h2 class="text-xl font-bold text-gray-800 mb-3">5. المهارات</h2>
+                    <textarea id="skills" placeholder="المهارات التقنية (أدخلها مفصولة بفواصل، مثل: React, JavaScript, AWS, SQL, Agile)" class="textarea-field">React, JavaScript, AWS, SQL, إدارة قواعد البيانات, حل المشكلات, العمل الجماعي, Agile</textarea>
+                </section>
+
+                <div class="mt-6 p-4 bg-yellow-100 border border-yellow-300 rounded-lg text-sm text-right">
+                    <p class="font-semibold text-yellow-800">تذكير ATS:</p>
+                    <ul class="list-disc list-inside mt-2 text-yellow-700">
+                        <li>استخدم الأقسام القياسية والخطوط الواضحة (مثل خط Inter).</li>
+                        <li>استخدم النقاط (Bullets) في وصف الخبرات.</li>
+                        <li>تجنب الرسوم البيانية أو الأعمدة المتعددة المعقدة.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- حقوق النشر في منطقة الإدخال (لا تظهر عند الطباعة) -->
+            <footer class="mt-4 text-center text-sm text-gray-500">
+                جميع الحقوق محفوظة &copy; 2024 أحمد الخولي.
+            </footer>
+        </div>
+
+        <!-- منطقة عرض السيرة الذاتية (المعاينة والطباعة) -->
+        <div class="lg:w-1/2 mt-8 lg:mt-0">
+            <div id="cv-preview" class="cv-container bg-white p-6 sm:p-8 rounded-xl shadow-2xl min-h-full">
+                <!-- سيتم عرض السيرة الذاتية هنا -->
+                <p class="text-center text-gray-500">سيتم عرض السيرة الذاتية هنا بمجرد إدخال البيانات واختيار الشكل.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // المتغيرات العامة
+        const inputForm = document.getElementById('input-form');
+        const cvPreview = document.getElementById('cv-preview');
+        const templateSelector = document.getElementById('template-selector');
+        const experienceContainer = document.getElementById('experience-container');
+        const educationContainer = document.getElementById('education-container');
+
+        // الأنماط التلقائية للحقول
+        const INPUT_CLASSES = "w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-700";
+        const TEXTAREA_CLASSES = "w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-700 h-24 resize-y text-right";
+
+        // تعيين الأنماط
+        document.querySelectorAll('.input-field').forEach(el => el.className = INPUT_CLASSES + " " + el.className);
+        document.querySelectorAll('.textarea-field').forEach(el => el.className = TEXTAREA_CLASSES + " " + el.className);
+        
+        // ------------------------------------
+        // 1. وظائف إضافة/حذف المدخلات
+        // ------------------------------------
+
+        /**
+         * إنشاء نموذج إدخال جديد للخبرة العملية
+         */
+        function createExperienceEntry(data = {}) {
+            const entry = document.createElement('div');
+            entry.className = "experience-entry p-3 border rounded-lg bg-gray-50 relative";
+            entry.innerHTML = `
+                <button onclick="removeEntry(this)" class="absolute top-1 left-1 text-red-500 hover:text-red-700 text-lg transition duration-150">&times;</button>
+                <input type="text" data-field="title" placeholder="المسمى الوظيفي" class="input-field mb-2" value="${data.title || ''}">
+                <input type="text" data-field="company" placeholder="اسم الشركة" class="input-field mb-2" value="${data.company || ''}">
+                <input type="text" data-field="dates" placeholder="تاريخ البدء - تاريخ الانتهاء" class="input-field mb-2" value="${data.dates || ''}">
+                <textarea data-field="description" placeholder="الوصف والمهام والإنجازات (استخدم النقاط)" class="textarea-field text-sm">${data.description || ''}</textarea>
+            `;
+            entry.querySelectorAll('.input-field').forEach(el => el.className = INPUT_CLASSES + " " + el.className);
+            entry.querySelector('textarea').className = TEXTAREA_CLASSES + " " + entry.querySelector('textarea').className;
+            entry.addEventListener('input', updateCV);
+            return entry;
+        }
+
+        /**
+         * إضافة خانة إدخال خبرة جديدة
+         */
+        function addExperience() {
+            experienceContainer.appendChild(createExperienceEntry());
+            updateCV();
+        }
+
+        /**
+         * إنشاء نموذج إدخال جديد للتعليم
+         */
+        function createEducationEntry(data = {}) {
+            const entry = document.createElement('div');
+            entry.className = "education-entry p-3 border rounded-lg bg-gray-50 relative";
+            entry.innerHTML = `
+                <button onclick="removeEntry(this)" class="absolute top-1 left-1 text-red-500 hover:text-red-700 text-lg transition duration-150">&times;</button>
+                <input type="text" data-field="degree" placeholder="الدرجة العلمية" class="input-field mb-2" value="${data.degree || ''}">
+                <input type="text" data-field="institution" placeholder="اسم الجامعة/المؤسسة" class="input-field mb-2" value="${data.institution || ''}">
+                <input type="text" data-field="dates" placeholder="سنة التخرج" class="input-field" value="${data.dates || ''}">
+            `;
+            entry.querySelectorAll('.input-field').forEach(el => el.className = INPUT_CLASSES + " " + el.className);
+            entry.addEventListener('input', updateCV);
+            return entry;
+        }
+
+        /**
+         * إضافة خانة إدخال مؤهل تعليمي جديد
+         */
+        function addEducation() {
+            educationContainer.appendChild(createEducationEntry());
+            updateCV();
+        }
+
+        /**
+         * إزالة خانة إدخال (خبرة أو تعليم)
+         */
+        function removeEntry(button) {
+            button.parentElement.remove();
+            updateCV();
+        }
+
+        // ------------------------------------
+        // 2. وظائف جمع البيانات
+        // ------------------------------------
+
+        /**
+         * جمع البيانات من جميع حقول الإدخال
+         */
+        function collectCVData() {
+            const data = {};
+
+            // 1. معلومات الاتصال والملخص
+            data.contact = {
+                name: document.getElementById('name').value,
+                title: document.getElementById('title').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                linkedin: document.getElementById('linkedin').value,
+            };
+            data.summary = document.getElementById('summary').value;
+            data.skills = document.getElementById('skills').value;
+
+            // 2. الخبرة العملية
+            data.experience = Array.from(experienceContainer.querySelectorAll('.experience-entry')).map(entry => ({
+                title: entry.querySelector('[data-field="title"]').value,
+                company: entry.querySelector('[data-field="company"]').value,
+                dates: entry.querySelector('[data-field="dates"]').value,
+                description: entry.querySelector('[data-field="description"]').value,
+            }));
+
+            // 3. التعليم
+            data.education = Array.from(educationContainer.querySelectorAll('.education-entry')).map(entry => ({
+                degree: entry.querySelector('[data-field="degree"]').value,
+                institution: entry.querySelector('[data-field="institution"]').value,
+                dates: entry.querySelector('[data-field="dates"]').value,
+            }));
+
+            return data;
+        }
+
+        // ------------------------------------
+        // 3. وظائف قوالب السيرة الذاتية (Rendering)
+        // ------------------------------------
+
+        /**
+         * إنشاء قسم واحد من السيرة الذاتية
+         * @param {string} title - عنوان القسم
+         * @param {string} content - محتوى HTML للقسم
+         * @param {string} templateClass - اسم الكلاس الخاص بالقالب (للتنسيق)
+         */
+        function createSection(title, content, templateClass) {
+            if (!content.trim()) return ''; // لا تعرض قسماً فارغاً
+            
+            if (templateClass === 'simple-template') {
+                // قالب بسيط: يعتمد على الخطوط الأفقية البسيطة والوضوح
+                return `
+                    <section class="mb-4 pt-2 border-t border-gray-400">
+                        <h3 class="text-lg font-bold uppercase mb-1">${title}</h3>
+                        ${content}
+                    </section>
+                `;
+            } else if (templateClass === 'modern-template') {
+                // قالب عصري: يستخدم خطاً أزرق كفاصل
+                return `
+                    <section class="mb-6">
+                        <h3 class="section-title text-xl font-bold text-blue-700 pb-1 mb-2 border-b-2 border-blue-500">${title}</h3>
+                        ${content}
+                    </section>
+                `;
+            }
+        }
+
+        /**
+         * قالب السيرة الذاتية "البسيط" - الأفضل لتوافق ATS
+         */
+        function templateSimple(data) {
+            const { contact, summary, experience, education, skills } = data;
+            const templateClass = 'simple-template';
+            
+            // 1. الرأس ومعلومات الاتصال
+            const contactHTML = `
+                <div class="text-center pb-2 mb-4 border-b border-gray-500">
+                    <h1 class="text-3xl font-extrabold mb-1">${contact.name}</h1>
+                    <h2 class="text-xl font-semibold mb-2 text-gray-700">${contact.title}</h2>
+                    <p class="text-sm text-gray-600 space-x-4 space-x-reverse">
+                        <span>${contact.email}</span> |
+                        <span>${contact.phone}</span>
+                        ${contact.linkedin ? `| <span>${contact.linkedin}</span>` : ''}
+                    </p>
+                </div>
+            `;
+
+            // 2. الملخص
+            const summaryHTML = createSection('الملخص الاحترافي', `<p class="text-sm text-gray-700">${summary}</p>`, templateClass);
+
+            // 3. الخبرة
+            const experienceContent = experience.filter(e => e.title.trim()).map(exp => `
+                <div class="mb-3">
+                    <div class="flex justify-between items-center mb-0">
+                        <h4 class="font-bold text-base">${exp.title} - ${exp.company}</h4>
+                        <span class="text-sm text-gray-600 font-medium">${exp.dates}</span>
+                    </div>
+                    ${exp.description ? `<ul class="list-disc list-outside mr-6 text-sm text-gray-700">` +
+                        exp.description.split('\n').filter(line => line.trim()).map(line => `<li>${line.replace(/^-/g, '').trim()}</li>`).join('') +
+                        `</ul>` : ''}
+                </div>
+            `).join('');
+            const experienceHTML = createSection('الخبرة العملية', experienceContent, templateClass);
+
+            // 4. التعليم
+            const educationContent = education.filter(e => e.degree.trim()).map(edu => `
+                <div class="flex justify-between items-center mb-2">
+                    <h4 class="font-bold text-base">${edu.degree} - ${edu.institution}</h4>
+                    <span class="text-sm text-gray-600 font-medium">${edu.dates}</span>
+                </div>
+            `).join('');
+            const educationHTML = createSection('التعليم والمؤهلات', educationContent, templateClass);
+
+            // 5. المهارات
+            const skillsArray = skills.split(',').map(s => s.trim()).filter(s => s
